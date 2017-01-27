@@ -1,0 +1,20 @@
+{
+  "name": "galaqr",
+  "version": "1.0.0",
+  "authors": [
+    "Daniel Nyström <daniel@nystrom.st>"
+  ],
+  "description": "Gala Ticket QR reader",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

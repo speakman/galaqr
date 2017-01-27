@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>QCodeDecoder - Camera</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="sheets.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="#">Gala QR</a>
+<!--
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+-->
+    </nav>
+
+    <div class="container">
+
+      <div class="starter-template">
+
+        <video autoplay></video>
+        <div>
+          <button id="reset">Reset</button>
+          <button id="stop" >Stop</button>
+        </div>
+
+        <script src="bower_components/qcode-decoder/build/qcode-decoder.min.js"></script>
+        <script type="text/javascript">
+        (function () {
+          'use strict';
+          var qr = new QCodeDecoder();
+          if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {
+            alert('Your browser doesn\'t match the required specs.');
+            throw new Error('Canvas and getUserMedia are required');
+          }
+          var video = document.querySelector('video');
+          var reset = document.querySelector('#reset');
+          var stop = document.querySelector('#stop');
+          function resultHandler (err, result) {
+            if (err)
+              return console.log(err.message);
+            alert(result);
+          }
+          // prepare a canvas element that will receive
+          // the image to decode, sets the callback for
+          // the result and then prepares the
+          // videoElement to send its source to the
+          // decoder.
+          qr.decodeFromCamera(video, resultHandler);
+          // attach some event handlers to reset and
+          // stop whenever we want.
+          reset.onclick = function () {
+            qr.decodeFromCamera(video, resultHandler);
+          };
+          stop.onclick = function () {
+            qr.stop();
+          };
+        })();
+        </script>
+
+        <div />
+
+        <div id="authorize-div" style="display: none">
+          <span>Authorize access to Google Sheets API</span>
+          <!--Button for the user to click to initiate auth sequence -->
+          <button id="authorize-button" onclick="handleAuthClick(event)">
+            Authorize
+          </button>
+        </div>
+        <pre id="output"></pre>
+
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
