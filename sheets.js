@@ -2,7 +2,7 @@
 // Developer Console, https://console.developers.google.com
 var CLIENT_ID = '1042405230806-4b0th7ne9m1e3p3elo7j2jv2au1v17va.apps.googleusercontent.com';
 
-var SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
+var SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 
 /**
  * Check if current user has authorized this application.
@@ -108,6 +108,21 @@ function getTickets() {
       } else {
         reject(Error('No data found.'));
       }
+    }, function(response) {
+      reject(Error(response.result.error.message));
+    });
+  });
+}
+
+function markTicket(row) {
+  return new Promise(function(resolve, reject) {
+    gapi.client.sheets.spreadsheets.values.update({
+      spreadsheetId: '17XCCYV29ey9nQpVjSjFptjGNf6XPtCcNFBffwNB3Ncc',
+      valueInputOption: 'USER_ENTERED',
+      range: 'Biljetter!E'+row,
+      values: [ [new Date().toLocaleString("sv")] ]
+    }).then(function(response) {
+      resolve(response);
     }, function(response) {
       reject(Error(response.result.error.message));
     });

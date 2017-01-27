@@ -58,30 +58,15 @@
       <div class="starter-template">
 
         <div id="authorize-div" style="display: none" class="alert alert-danger" role="alert">
-          Authorize access to Google Sheets API! 
+          Authorize access to Google Sheets API!
           <button id="authorize-button" onclick="handleAuthClick(event)">Authorize now</button>
         </div>
 
         <div class="clearfix">&nbsp;</div>
 
-        <div class="card text-center card-inverse" style="background-color: #333; border-color: #333;">
-          <h3 class="card-header">Camera</h3>
-          <video autoplay></video>
-          <div style="display: none">
-            <button id="reset">Reset</button>
-            <button id="stop" >Stop</button>
-          </div>
-        </div>
-
-        <div class="clearfix">&nbsp;</div>
-
-        <div class="card text-center card-inverse" style="background-color: #333; border-color: #333;">
-          <h3 class="card-header">Manual input</h3>
-          <input type="text" class="form-control" name="ticketid" autofocus/>
-        </div>
-
-        <div class="clearfix">&nbsp;</div>
-
+        <video autoplay></video>
+        <div>&nbsp;</div>
+        <input type="text" class="form-control" name="ticketid" autofocus maxlength="4" />
 
         <pre id="output"></pre>
 
