@@ -52,7 +52,7 @@ function handleAuthClick(event) {
 function loadSheetsApi() {
   var discoveryUrl =
       'https://sheets.googleapis.com/$discovery/rest?version=v4';
-  gapi.client.load(discoveryUrl).then(listMajors);
+  gapi.client.load(discoveryUrl).then(handleAuthorized);
 }
 
 /**
@@ -89,4 +89,27 @@ function appendPre(message) {
   var pre = document.getElementById('output');
   var textContent = document.createTextNode(message + '\n');
   pre.appendChild(textContent);
+}
+
+
+function handleAuthorized() {
+
+}
+
+function getTickets() {
+  return new Promise(function(resolve, reject) {
+    gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: '17XCCYV29ey9nQpVjSjFptjGNf6XPtCcNFBffwNB3Ncc',
+      range: 'Biljetter!A2:F',
+    }).then(function(response) {
+      var range = response.result;
+      if (range.values.length > 0) {
+        resolve(range);
+      } else {
+        reject(Error('No data found.'));
+      }
+    }, function(response) {
+      reject(Error(response.result.error.message));
+    });
+  });
 }
