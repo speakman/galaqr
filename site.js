@@ -32,21 +32,30 @@ function verifyTicketId(tid) {
     if (!found) {
       body.text("Hittar inte biljettnummer " + tid)
     } else {
-      body.html(formatTicketInfo(tid,row[2],row[3]))
+      body.html(formatTicketInfo(tid,row[3],row[4]))
       use.show()
-      $(use).click(function() {
-        body.text("Märker biljett...")
+
+      if (row[2].length !== 0) {
+        body.html(body.html() +
+          '<div class="alert alert-danger" role="alert">' +
+          '<strong>BILJETTEN REDAN UTNYTTJAD</strong>' +
+          '</div>')
         use.hide()
-        cancel.hide()
-        markTicket(rowid).then(function() {
-          modal.modal('hide')
-        }, function(err) {
-          body.text("Fel vid märkning!")
-          console.log(err)
-          cancel.show()
+      } else {
+        $(use).click(function() {
+          body.text("Märker biljett...")
+          use.hide()
+          cancel.hide()
+          markTicket(rowid).then(function() {
+            modal.modal('hide')
+          }, function(err) {
+            body.text("Fel vid märkning!")
+            console.log(err)
+            cancel.show()
+          })
+          $(use).off()
         })
-        $(use).off()
-      })
+      }
     }
     cancel.show()
   }, function(err) {

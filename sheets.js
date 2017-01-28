@@ -119,7 +119,7 @@ function markTicket(row) {
     gapi.client.sheets.spreadsheets.values.update({
       spreadsheetId: '17XCCYV29ey9nQpVjSjFptjGNf6XPtCcNFBffwNB3Ncc',
       valueInputOption: 'USER_ENTERED',
-      range: 'Biljetter!E'+row,
+      range: 'Biljetter!C'+row,
       values: [ [new Date().toLocaleString("sv")] ]
     }).then(function(response) {
       resolve(response);
