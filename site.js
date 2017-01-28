@@ -35,7 +35,7 @@ function verifyTicketId(tid) {
       body.html(formatTicketInfo(tid,row[3],row[4]))
       use.show()
 
-      if (row[2].length !== 0) {
+      if (row[2] !== undefined && row[2].length !== 0) {
         body.html(body.html() +
           '<div class="alert alert-danger" role="alert">' +
           '<strong>BILJETTEN REDAN UTNYTTJAD</strong>' +
